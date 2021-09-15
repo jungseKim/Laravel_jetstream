@@ -2433,6 +2433,9 @@ html {
 .prose tbody tr {
 	border-bottom-color: hsl(var(--bc)/40%);
 }
+.visible {
+	visibility: visible;
+}
 .fixed {
 	position: fixed;
 }

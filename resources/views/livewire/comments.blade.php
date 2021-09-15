@@ -80,6 +80,9 @@
 </div> 
 @endforeach
 {{ $comments->links() }}
+<div wire:poll.1000ms.visible>
+    현재 시각: {{ now() }}
+</div>
 
 </div>
 
