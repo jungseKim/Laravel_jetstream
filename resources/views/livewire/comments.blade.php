@@ -9,15 +9,23 @@
 
   {{-- 라이브 와이어는 바인딩이되므로 메소드가 갔을때 저장만 시키면 되서
   form안에 없어도 상광없다 --}}
-  <section>
+
+  {{-- @can('create',$userId)
+   --}}
+  @if (auth()->user()->id==$userId)
+   <section>
     @if ($image)
       <img src="{{ $image->temporaryUrl() }}" width="200">
     @endif
     <input type="file" 
-    wire:model="image"  
+    wire:model="image" 
     id="image"
     wire:loading.attr="disabled">
-   <div>
+   {{-- <label class="w-50">
+                <input class="text-sm cursor-pointer w-36 hidden" type="file" multiple>
+                <div class="text bg-indigo-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">Select</div>
+            </label> --}}
+    <div>
        @error("image")
         <span class="red">{{ $message }}</span>
       @enderror
@@ -42,7 +50,8 @@
         </button>
       </div>
       </form>
-
+ @endif
+  {{-- @endcan --}}
     @foreach ($comments as $comment)
   <div class="card text-center shadow-2xl">
     <div class="flex justify-between my-2">

@@ -21,12 +21,26 @@ class Comments extends Component
     //프론트에서는 퍼블릭만 접근가능
     public $newComment = '';
     public $image;
-
+    public $userId;
 
     protected $listeners = [
-        'delete' => 'remove'
+        'delete' => 'remove',
+        'commentUpdated' => 'getComments',
+        'userSelected'
 
     ];
+    public function userSelected($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    public function getComments()
+    {
+        // $this->resetPage();
+        // $this->render();
+        // $this->mount();
+    }
+
     public function remove($commentId)
     {
         $comment = Comment::find($commentId);
@@ -40,6 +54,7 @@ class Comments extends Component
     protected $rules  = [
         'newComment' => 'required',
         'image' => 'nullable|image|max:1024'
+
     ];
 
     // public function updating($name, $value)
@@ -95,8 +110,11 @@ class Comments extends Component
 
     public function render()
     {
+        if (!$this->userId) {
+            $this->userId = auth()->user()->id;
+        }
         return view('livewire.comments', [
-            'comments' => Comment::latest()->paginate(5),
+            'comments' => Comment::whereUserId($this->userId)->latest()->paginate(5),
         ]);
     }
 }
