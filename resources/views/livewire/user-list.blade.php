@@ -7,7 +7,8 @@
       @else
       <div class="card text-center shadow-2xl bg-green-400">
   @endif --}}
-  <div class="card text-center shadow-2xl {{ $userId==$user->id? 'bg-green-400':'' }}">
+  <div wire:click="$emit('userSelected',{{ $user->id}})" 
+  class="card text-center shadow-2xl {{ $userId==$user->id? 'bg-green-400':'' }}">
     <div class="flex justify-between my-2">
         <div class="flex">
           <p class="text-lg font-bold">
@@ -18,7 +19,7 @@
           </p>
         </div>
            <div>
-             <i wire:click="$emit('userSelected',{{ $user->id}})" 
+             <i wire:click ="$emit('openModal', 'user-info',{{ json_encode(['userId'=>$user->id])}})"
             class="fas fa-info-circle hover:text-red-600"></i>
            </div>
     </div>
