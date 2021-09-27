@@ -11,7 +11,7 @@
   class="card text-center shadow-2xl {{ $userId==$user->id? 'bg-green-400':'' }}">
     <div class="flex justify-between my-2">
         <div class="flex">
-          <p class="text-lg font-bold">
+          <p class="font-bold {{ strlen($user->name)>12? 'text-sm':'text-lg' }}">
             {{ $user->name }}
           </p>
           <p class="py-1 mx-3 textxs font-semibold text-gray-500">
